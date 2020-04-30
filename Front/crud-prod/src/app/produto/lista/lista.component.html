@@ -1,0 +1,55 @@
+<div class="container main-container">
+
+  <nav class="navbar">
+    <input class="form-control" type="text" [(ngModel)]="termo" placeholder="Buscar"
+      (keydown.enter)="onSubmitFiltro(termo)">
+  </nav>
+  <div class="table-responsive">
+    <table class="table table-striped" matSort (matSortChange)="obterProdutos()" matSortActive="id"
+      matSortDirection="asc">
+      <thead>
+        <tr>
+          <th scope="col">FOTO</th>
+          <th scope="col" mat-sort-header="nome">NOME</th>
+          <th scope="col" mat-sort-header="descricao">DESCRIÇÃO</th>
+          <th scope="col" mat-sort-header="velor">VALOR</th>
+          <th scope="col" mat-sort-header="quantidadeEstoque">ESTOQUE</th>
+          <th scope="col">AÇÕES</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let produto of produtos">
+          <td>
+            <!-- <img src="./../../../assets/imagens/camiseta1.jpg"> -->
+            <img src="data:image/jpeg;base64,{{produto.imagemByte}}" />
+
+          </td>
+          <td>{{produto.nome | uppercase }}</td>
+          <td>{{produto.descricao | uppercase }}</td>
+          <td>{{ produto.valor | currency:'BRL':'symbol':'1.2-2':'pt' }}</td>
+          <td>{{produto.quantidadeEstoque}}</td>
+          <td>
+            <a routerLinkActive="active" [routerLink]="['/produto/editar/', produto.id]" title="Editar">
+              <svg xmlns="http://www.w3.org/2000/svg" width="1.4em" height="1.4em" viewBox="0 0 24 24">
+                <path
+                  d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
+                <path d="M0 0h24v24H0z" fill="none" /></svg>
+            </a>
+            <a title="Excluir" (click)="openModal(produto.id, produto.nome, produto.descricao, produto.valor)">
+              <svg id="svg-excluir" class="bi bi-trash-fill" width="1.4em" height="1em" viewBox="0 0 16 16"
+                fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd"
+                  d="M2.5 1a1 1 0 00-1 1v1a1 1 0 001 1H3v9a2 2 0 002 2h6a2 2 0 002-2V4h.5a1 1 0 001-1V2a1 1 0 00-1-1H10a1 1 0 00-1-1H7a1 1 0 00-1 1H2.5zm3 4a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7a.5.5 0 01.5-.5zM8 5a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7A.5.5 0 018 5zm3 .5a.5.5 0 00-1 0v7a.5.5 0 001 0v-7z"
+                  clip-rule="evenodd" />
+              </svg>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <ngb-pagination (pageChange)="onPageChange($event)" [(page)]="currentPage" [pageSize]="itemsPerPage"
+    [collectionSize]="totalItems"></ngb-pagination>
+</div>
+
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "ball-atom" [fullScreen] = "true"><p style="color: white" > Buscando Produtos </p></ngx-spinner>

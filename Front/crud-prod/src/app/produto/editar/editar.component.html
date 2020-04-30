@@ -1,0 +1,144 @@
+<div class="container main-container">
+    <form [formGroup]="cadastroForm">
+        <input type="hidden" id="id" formControlName="id">
+
+        <div class="form-horizontal">
+
+            <div class="row">
+
+                <div class="form-group col-md-6">
+                    <label for="nome">NOME</label>
+                    <div>
+                        <input class="form-control" id="nome" type="text" placeholder="Nome (requerido)"
+                            formControlName="nome" [ngClass]="{'input-invalid': displayMessage.nome }" />
+                        <span class="text-danger spanError" *ngIf="displayMessage.nome">
+                            <p class="mensagemErro" [innerHTML]="displayMessage.nome | uppercase"></p>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label for="descricao">DESCRIÇÃO</label>
+                    <div>
+                        <input class="form-control" id="descricao" type="text" placeholder="descricao (requerido)"
+                            formControlName="descricao" [ngClass]="{'input-invalid': displayMessage.descricao }" />
+                        <span class="text-danger spanError" *ngIf="displayMessage.descricao">
+                            <p class="mensagemErro" [innerHTML]="displayMessage.descricao | uppercase"></p>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-md-4">
+                    <label for="valor">VALOR</label>
+                    <div>
+                        <input class="form-control" id="valor"
+                            [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',', align:'left' }" type="text"
+                            placeholder="valor (requerido)" formControlName="valor" currencyMask
+                            [ngClass]="{'input-invalid': displayMessage.valor }" />
+                        <span class="text-danger spanError" *ngIf="displayMessage.valor">
+                            <p class="mensagemErro" [innerHTML]="displayMessage.valor | uppercase"></p>
+                        </span>
+                    </div>
+                </div>
+
+
+                <div class="form-group col-md-2">
+                    <label for="quantidadeEstoque">ESTOQUE</label>
+                    <div>
+                        <input class="form-control" id="quantidadeEstoque" type="number"
+                            placeholder="Quantidade estoque (requerido)" formControlName="quantidadeEstoque"
+                            [ngClass]="{'input-invalid': displayMessage.quantidadeEstoque }" />
+                        <span class="text-danger spanError" *ngIf="displayMessage.quantidadeEstoque">
+                            <p class="mensagemErro" [innerHTML]="displayMessage.quantidadeEstoque | uppercase"></p>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group col-md-2">
+                    <label for="quantidadeEstoque">ALTURA</label>
+                    <div>
+                        <input class="form-control" id="altura" type="number" placeholder="altura (requerido)"
+                            formControlName="altura" [ngClass]="{'input-invalid': displayMessage.altura }" />
+                        <span class="text-danger spanError" *ngIf="displayMessage.altura">
+                            <p class="mensagemErro" [innerHTML]="displayMessage.altura | uppercase"></p>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group col-md-2">
+                    <label for="largura">LARGURA</label>
+                    <div>
+                        <input class="form-control" id="largura" type="number" placeholder="largura (requerido)"
+                            formControlName="largura" [ngClass]="{'input-invalid': displayMessage.largura }" />
+                        <span class="text-danger spanError" *ngIf="displayMessage.largura">
+                            <p class="mensagemErro" [innerHTML]="displayMessage.largura | uppercase"></p>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group col-md-2">
+                    <label for="profundidade">PROFUNDIDADE</label>
+                    <div>
+                        <input class="form-control" id="profundidade" type="number"
+                            placeholder="profundidade (requerido)" formControlName="profundidade"
+                            [ngClass]="{'input-invalid': displayMessage.profundidade }" />
+                        <span class="text-danger spanError" *ngIf="displayMessage.profundidade">
+                            <p class="mensagemErro" [innerHTML]="displayMessage.profundidade | uppercase"></p>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label for="imagem">IMAGEM</label>
+                    <div>
+                        <input disabled class="form-control" id="imagem"
+                            type="text" placeholder="imagem (requerido)" formControlName="imagem"
+                            [ngClass]="{'input-invalid': displayMessage.imagem }" />
+                        <span class="text-danger spanError" *ngIf="displayMessage.imagem">
+                            <p class="mensagemErro" [innerHTML]="displayMessage.imagem | uppercase"></p>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label for="categoriaId">CATEGORIA</label>
+                    <div>
+                        <ng-select [items]="categorias$ | async" id="categoriaId" formControlName="categoriaId"
+                            [ngClass]="{'select-invalid': displayMessage.categoriaId}" placeholder="largura (requerido)"
+                            bindLabel="nome" (close)="validaSelecect()" (blur)="validaSelecect()" bindValue="id">
+                        </ng-select>
+                        <span class="text-danger spanError" *ngIf="displayMessage.categoriaId">
+                            <p class="mensagemErro" [innerHTML]="displayMessage.categoriaId | uppercase"></p>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group col-md-2">
+                    <label for="categoriaId">ATIVO</label>
+                    <div class="custom-control custom-switch">
+                        <input formControlName="ativo" type="checkbox" class="custom-control-input" id="ativo">
+                        <label class="custom-control-label" for="ativo"></label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 form-group col-md-offset-2">
+                    <span>
+                        <button [disabled]="load" class="btn btn-success form-group" (keypress)="onSubmit()"
+                            (click)="onSubmit()" id="registrar" type="submit">
+                            <span *ngIf="load" class="spinner-border spinner-border-sm mr-1"></span>
+                            EDITAR
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "ball-atom" [fullScreen] = "true"><p style="color: white" > Carregando... </p></ngx-spinner>

@@ -1,0 +1,45 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@ng-select/ng-select/themes/default.theme.css";
+@import '~ngx-toastr/toastr';
+
+.load {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    top: 30%;
+    left: 45%;
+    z-index: 1000;
+}
+
+
+.ng-select.select-invalid .ng-select-container, .input-invalid {            
+    border-color:#dc3545;
+}
+
+.spanError{
+    font-size: 12px;
+}
+.mensagemErro {
+    margin-bottom: 1px;
+    position: absolute;
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+label {
+    margin-bottom: 3px;
+    font-size: 14px;
+}
+body { font-family: Roboto, "Helvetica Neue", sans-serif;  padding-top: 70px;   padding-bottom: 40px}
+
+
+a:hover {
+    cursor: pointer;
+}
+
+/* @media only screen and (max-width: 500px) {
+    table td, .table th {
+        padding: 0;
+    }
+} */
