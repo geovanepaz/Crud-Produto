@@ -1,5 +1,5 @@
 <div class="container main-container">
-    <form  [formGroup]="cadastroForm" autocomplete="off">
+    <form  [formGroup]="cadastroForm">
         <div class="form-horizontal">
 
             <div class="row">
@@ -13,7 +13,6 @@
                         type="text" 
                         placeholder="Nome (requerido)" 
                         formControlName="nome" 
-                        (focus)="limparErro($event.target.id)"
                         [ngClass]="{'input-invalid': displayMessage.nome }"/>
                         <span 
                         class="text-danger spanError" 
@@ -32,7 +31,6 @@
                         type="text" 
                         placeholder="descricao (requerido)" 
                         formControlName="descricao" 
-                        (focus)="limparErro($event.target.id)"
                         [ngClass]="{'input-invalid': displayMessage.descricao }"/>
                         <span 
                         class="text-danger spanError" 
@@ -55,7 +53,6 @@
                     placeholder="valor (requerido)" 
                     formControlName="valor" 
                     currencyMask 
-                    (focus)="limparErro($event.target.id)"
                     [ngClass]="{'input-invalid': displayMessage.valor }"/>
                     <span 
                     class="text-danger spanError" 
@@ -75,7 +72,6 @@
                     type="number" 
                     placeholder="Quantidade estoque (requerido)" 
                     formControlName="quantidadeEstoque" 
-                    (focus)="limparErro($event.target.id)"
                     [ngClass]="{'input-invalid': displayMessage.quantidadeEstoque }"/>
                     <span 
                     class="text-danger spanError" 
@@ -94,7 +90,6 @@
                     type="number" 
                     placeholder="altura (requerido)" 
                     formControlName="altura" 
-                    (focus)="limparErro($event.target.id)"
                     [ngClass]="{'input-invalid': displayMessage.altura }"/>
                     <span 
                     class="text-danger spanError" 
@@ -113,7 +108,6 @@
                     type="number" 
                     placeholder="largura (requerido)" 
                     formControlName="largura" 
-                    (focus)="limparErro($event.target.id)"
                     [ngClass]="{'input-invalid': displayMessage.largura }"/>
                     <span 
                     class="text-danger spanError" 
@@ -132,7 +126,6 @@
                     type="number" 
                     placeholder="profundidade (requerido)" 
                     formControlName="profundidade" 
-                    (focus)="limparErro($event.target.id)"
                     [ngClass]="{'input-invalid': displayMessage.profundidade }"/>
                     <span 
                     class="text-danger spanError" 
@@ -155,7 +148,6 @@
                     type="text"
                     placeholder="imagem (requerido)" 
                     formControlName="imagem" 
-                    (focus)="limparErro($event.target.id)"
                     [ngClass]="{'input-invalid': displayMessage.imagem }"/>
                     <span 
                     class="text-danger spanError" 
@@ -173,11 +165,10 @@
                       id="categoriaId" 
                       formControlName="categoriaId" 
                       [ngClass]="{'select-invalid': displayMessage.categoriaId}"
-                      placeholder="categotia (requerido)"
+                      placeholder="largura (requerido)"
                       bindLabel="nome"
                       (close)="validaSelecect()"
                       (blur)="validaSelecect()"
-                      (focus)="limparErro('categoriaId')"
                       bindValue="id">
                       </ng-select>
                     <span 
@@ -189,7 +180,7 @@
             </div>
 
             <div class="form-group col-md-2">
-                <label>ATIVO</label>
+                <label for="categoriaId">ATIVO</label>
                 <div class="custom-control custom-switch">
                     <input 
                     formControlName="ativo" 
@@ -204,7 +195,8 @@
             <div class="row">
                 <div class="col-md-4 form-group col-md-offset-2">
                     <span>
-                        <button [disabled]="!cadastroForm.valid" class="btn btn-success form-group" (click)="onSubmit()" id="registrar"  type="button">
+                        <button [disabled]="load" class="btn btn-success form-group" (keypress)="onSubmit()" (click)="onSubmit()" id="registrar"  type="submit">
+                            <span *ngIf="load" class="spinner-border spinner-border-sm mr-1"></span>
                             REGISTRAR
                         </button>
                     </span>

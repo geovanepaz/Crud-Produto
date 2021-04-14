@@ -18,14 +18,14 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let produto of produtos" (contextmenu)="onRightClick()">
-          <td class="divImg" (click)="openModalImagem(produto.imagemByte, produto.nome)"> 
+        <tr *ngFor="let produto of produtos">
+          <td>
             <!-- <img src="./../../../assets/imagens/camiseta1.jpg"> -->
-            <img   src="data:image/jpeg;base64,{{produto.imagemByte}}" />
+            <img src="data:image/jpeg;base64,{{produto.imagemByte}}" />
 
           </td>
-          <td>{{produto.nome | primeiraMaiuscula }}</td>
-          <td>{{produto.descricao | primeiraMaiuscula }}</td>
+          <td>{{produto.nome | uppercase }}</td>
+          <td>{{produto.descricao | uppercase }}</td>
           <td>{{ produto.valor | currency:'BRL':'symbol':'1.2-2':'pt' }}</td>
           <td>{{produto.quantidadeEstoque}}</td>
           <td>

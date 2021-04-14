@@ -137,27 +137,18 @@ export class EditarComponent implements OnInit, AfterViewInit {
       .map((formControl: ElementRef) => fromEvent(formControl.nativeElement, 'blur'));
 
     merge(...controlBlurs).subscribe(() => {
-      this.displayMessage = this.genericValidator.processarMensagens(this.cadastroForm);
+      this.displayMessage = this.genericValidator.processarMensagens(this.cadastroForm, false);
     });
   }
 
-  limparErro(key:string) : void {
-    this.displayMessage[key] = '';
-  }
-
   validaSelecect() {
-    this.displayMessage = this.genericValidator.processarMensagens(this.cadastroForm);
-  }
-
-  keyPressSubmit(){
-    //this.displayMessage = this.genericValidator.processarMensagens(this.cadastroForm);
-    return false;
+    this.displayMessage = this.genericValidator.processarMensagens(this.cadastroForm, false);
   }
 
   onSubmit() {
-    if (!this.cadastroForm.valid) return;
-
+    if (!this.formValido()) return;
     this.spinner.show();
+
     this.produto = Object.assign({}, this.produto, this.cadastroForm.value);
 
     this.produtoService.atualizarProduto(this.produto)
@@ -171,6 +162,11 @@ export class EditarComponent implements OnInit, AfterViewInit {
           this.toastr.error(error.error.message, "ERRO");
         }
       );
+  }
+
+  formValido(): Boolean {
+    this.displayMessage = this.genericValidator.processarMensagens(this.cadastroForm, true);
+    return this.cadastroForm.valid;
   }
 
   obterCategorias(): void {

@@ -9,17 +9,19 @@ import { AuthGuard } from './core/_helpers/auth.guard';
 
 
 const routes: Routes = [
-
-  // AuthGuard é um guarda de rota que serve para verificar se o usuário esta autenticado.
   //{ path: '', redirectTo: '/home', pathMatch: 'full'},    
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
   { path: '', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
 
-  //canLoad Verifica se o usuario ta logado antes de carregar o mudulo, serve apanas no carregamento de modulos.  canLoad: [AuthGuard]
   { path: 'produto',
   loadChildren: () => import('./produto/produto.module')
   .then(m => m.ProdutoModule)},
+  
+  // { path: 'produto/cadastro', component: CadastroComponent, canActivate: [AuthGuard]},
+  // { path: 'produto/lista', component: ListaComponent, canActivate: [AuthGuard] },
+  // { path: 'produto/editar/:id', component: EditarComponent, canActivate: [AuthGuard] },
+
 
   // otherwise redirect to home
   { path: '**', redirectTo: '' }
