@@ -106,16 +106,16 @@ export class CadastroComponent implements OnInit, AfterViewInit {
       .map((formControl: ElementRef) => fromEvent(formControl.nativeElement, 'blur'));
 
     merge(...controlBlurs).subscribe(() => {
-      this.displayMessage = this.genericValidator.processarMensagens(this.cadastroForm, false);
-    });
+      this.displayMessage = this.genericValidator.processarMensagens(this.cadastroForm);
+     });
   }
 
   validaSelecect() {
-    this.displayMessage = this.genericValidator.processarMensagens(this.cadastroForm, false);
+    this.displayMessage = this.genericValidator.processarMensagens(this.cadastroForm);
   }
 
   onSubmit() {
-    if (!this.formValido()) return;
+    if (!this.cadastroForm.valid) return;
 
     this.spinner.show();
 
@@ -135,11 +135,10 @@ export class CadastroComponent implements OnInit, AfterViewInit {
       );
   }
 
-  formValido(): Boolean {
-    this.displayMessage = this.genericValidator.processarMensagens(this.cadastroForm, true);
-    return this.cadastroForm.valid;
+  limparErro(key:string) : void {
+    this.displayMessage[key] = '';
   }
-
+  
   obterCategorias(): void {
     this.categorias$ = this.produtoService.obterCategorias();
   }

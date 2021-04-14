@@ -10,6 +10,7 @@ import { ProdutoService } from '../produto.service';
 import { ToastrService } from 'ngx-toastr';
 import { ModalDeletarComponent } from '../../shared/modal-deletar/modal-deletar.component';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ModalImagemComponent } from 'src/app/shared/modal-imagem/modal-imagem.component';
 
 @Component({
   selector: 'app-lista',
@@ -36,11 +37,23 @@ export class ListaComponent implements OnInit {
 
   ngOnInit() {
     this.currentPage = 1;
-    this.itemsPerPage = 10;
+    this.itemsPerPage = 40;
     this.termo = '';
     this.sort = new MatSort();
-
+    this.sort.active = 'id'
+    this.sort.direction = 'asc';
     this.obterProdutos();
+  }
+
+  onRightClick()
+  {
+    return false;
+  }
+  openModalImagem(imagemByte: any, nome: string)
+  {
+    const modalRef = this.modalService.open(ModalImagemComponent, { centered: true, backdropClass: 'fundo-imagem-modal',  windowClass: 'dark-modal'});
+    modalRef.componentInstance.imagemByte = imagemByte;
+    modalRef.componentInstance.nome = nome;
   }
 
   openModal(id: string, nome: string, descricao: string, valor: string) {
@@ -55,7 +68,7 @@ export class ListaComponent implements OnInit {
         this.onDelete(result);
       },
         () => modalRef.close()
-      );
+    );
   }
 
   onDelete(id: string) {
@@ -84,7 +97,7 @@ export class ListaComponent implements OnInit {
 
   obterProdutos() {
     this.spinner.show();
-    
+   
     this.produtoService.filtrarProdutos(this.termo, this.itemsPerPage, this.currentPage, this.sort.active, this.sort.direction === "asc")
       .subscribe(
         response => {

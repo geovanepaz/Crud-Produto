@@ -38,6 +38,15 @@ a:hover {
     cursor: pointer;
 }
 
+.fundo-imagem-modal{
+    opacity: .75 !important;
+}
+
+.dark-modal .modal-content {
+    background-color:white;
+    color: black;
+  }
+
 /* @media only screen and (max-width: 500px) {
     table td, .table th {
         padding: 0;

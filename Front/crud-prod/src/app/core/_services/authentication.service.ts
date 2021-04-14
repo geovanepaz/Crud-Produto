@@ -17,7 +17,6 @@ export class AuthenticationService extends BaseService {
 
   constructor(private http: HttpClient) {
     super();
-
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
     this.logadoSubject = new BehaviorSubject<boolean>(false);
     this.logado = this.logadoSubject.asObservable();

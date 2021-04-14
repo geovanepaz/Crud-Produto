@@ -6,7 +6,31 @@ a{
 }
 
  img {
-    max-width:30px;
-    max-height:20px;
+    max-width:40px;
+    max-height:40px;
+    margin-top: 15%;
+    margin-bottom: 15%;
 }
+
+.divImg{
+  padding-top: 0px;
+  padding-bottom: 0px;
+  padding-left: 2%;
+  cursor: Pointer;
+}
+
+  .divImg:hover img {
+    -webkit-transform: scale(2.5) ;
+    -moz-transform: scale(2.5);
+    -o-transform: scale(2.5);
+    -ms-transform: scale(2.5);
+    transform: scale(2.5);
+    margin-left: 10%;
+
+    -webkit-transition:  -webkit-transform .6s ease,  margin-left .6s ease;
+    transition: transform .6s ease,  margin-left .6s ease;
+ 
+
+  }
+
 

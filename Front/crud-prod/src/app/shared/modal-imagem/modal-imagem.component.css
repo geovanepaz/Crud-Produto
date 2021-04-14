@@ -1,0 +1,15 @@
+.fechar{
+    float: right;
+    cursor: pointer;
+}
+.modal-body {
+    padding-bottom: 0.5%;
+    padding-top: 0%;
+}
+
+.modal-header{
+    padding-top: 1%;
+    padding-bottom: 1%;
+    border: 0;
+
+}
