@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ProdutoService } from '../../produto/produto.service';
-
-
-import { AuthenticationService } from '../../core/_services';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { AuthenticationService } from 'src/app/navegacao/services/authentication.service';
+import { LoginHelper } from 'src/app/core/_helpers/login-helper';
 
 @Component({
   selector: 'app-login',
@@ -24,10 +21,11 @@ export class LoginComponent implements OnInit {
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
-        private authenticationService: AuthenticationService
+        private authenticationService: AuthenticationService, 
+        private loginHelper: LoginHelper
     ) { 
         // redirect to home if already logged in
-        if (this.authenticationService.estaAutenticado) { 
+        if (this.loginHelper.estaAutenticado) { 
             this.router.navigate(['/']);
         }
     }

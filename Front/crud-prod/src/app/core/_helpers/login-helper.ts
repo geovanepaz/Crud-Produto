@@ -1,29 +1,22 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 
 import { BehaviorSubject, Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
 import decode from 'jwt-decode';
 
-import { User } from '../_models';
-import { BaseService } from './base.service';
-
 @Injectable({ providedIn: 'root' })
-export class AuthenticationService extends BaseService {
+export class LoginHelper  {
 
-  private currentUserSubject: BehaviorSubject<User>;
+  private currentUserSubject: BehaviorSubject<any>;
   private logadoSubject: BehaviorSubject<boolean>;
   private logado: Observable<boolean>;
 
-  constructor(private http: HttpClient) {
-    super();
-    this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
+  constructor() {
+    this.currentUserSubject = new BehaviorSubject<any>(JSON.parse(localStorage.getItem('currentUser')));
     this.logadoSubject = new BehaviorSubject<boolean>(false);
     this.logado = this.logadoSubject.asObservable();
-    this.urlServiceV1 += "login/"
   }
 
-  public get currentUserValue(): User {
+  public get currentUserValue() : any {
     return this.currentUserSubject.value;
   }
 
@@ -38,13 +31,11 @@ export class AuthenticationService extends BaseService {
     return this.logado;
   }
 
-  login(email: string, senha: string) {
-    return this.http.post<User>(this.urlServiceV1, JSON.stringify({ email, senha }), this.obterHeaderJson())
-      .pipe(
-        tap(user => this.salvarLocalStorage(user))
-      );
+  public get obterToken(): string {
+    let user = this.currentUserSubject.value;
+    return user ? user.accessToken : null;
   }
-
+ 
   logout() {
     // remove user from local storage to log user out
     localStorage.removeItem('currentUser');
@@ -52,7 +43,7 @@ export class AuthenticationService extends BaseService {
     this.logadoSubject.next(false);
   }
 
-  private salvarLocalStorage(user: User) {
+  salvarLocalStorage(user: any) {
     let tokenPayload = decode(user.accessToken);
     user.expiresIn = tokenPayload.exp * 1000;
 

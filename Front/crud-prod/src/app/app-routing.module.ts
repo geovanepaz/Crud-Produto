@@ -5,7 +5,7 @@ import { CadastroComponent } from './produto/cadastro/cadastro.component';
 import { LoginComponent } from './navegacao/login/login.component';
 import { ListaComponent } from './produto/lista/lista.component';
 import { EditarComponent } from './produto/editar/editar.component';
-import { AuthGuard } from './core/_helpers/auth.guard';
+import { AuthGuard } from './core/_services/auth.guard';
 
 
 const routes: Routes = [

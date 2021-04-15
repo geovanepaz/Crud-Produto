@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { Produto } from './models/produto';
 import { Categoria } from './models/Categoria';
 import { ProdutoPaginacao } from './models/produtoPaginacao';
-import { BaseService } from '../core/_services';
+import { BaseService } from '../core/_services/base.service';
 
 @Injectable()
 export class ProdutoService extends BaseService {

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from 'src/app/core/_services';
 import { Router } from '@angular/router';
+import { LoginHelper } from 'src/app/core/_helpers/login-helper';
+import { AuthenticationService } from 'src/app/navegacao/services/authentication.service';
 
 @Component({
   selector: 'app-menu',
@@ -12,17 +13,16 @@ export class MenuComponent implements OnInit {
   estaLogado: boolean;
   public isMenuCollapsed = true;
 
-  constructor(private authenticationService: AuthenticationService, private router: Router) {
-    this.authenticationService.estaAutenticado.subscribe(x => this.estaLogado = x);
-  }
+  constructor(private router: Router, private loginHelper: LoginHelper) {}
 
   ngOnInit() {
+    this.loginHelper.estaAutenticado.subscribe((x: boolean) => this.estaLogado = x);
     this.isMenuCollapsed = true;
   }
 
   logout() {
     this.isMenuCollapsed = true;
-    this.authenticationService.logout();
+    this.loginHelper.logout();
     this.router.navigate(['/login']);
   }
 }
